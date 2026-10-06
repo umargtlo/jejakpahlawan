@@ -1,0 +1,2186 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPI IPAS Kelas VI - Jejak Sang Pahlawan (Gorontalo)</title>
+    <style>
+        :root {
+            --bg-primary: #FDFBF7;
+            --bg-secondary: #F3EBDD;
+            --bg-card: #FFFFFF;
+            --text-dark: #2C1A0E;
+            --text-muted: #6E523B;
+            --brand-primary: #5C3218;
+            --brand-secondary: #8C4A23;
+            --brand-accent: #D4AF37;
+            --brand-gold-light: #F9F1D8;
+            --border-color: #D3C2A7;
+            --success: #2E7D32;
+            --success-bg: #E8F5E9;
+            --danger: #C62828;
+            --danger-bg: #FFEBEE;
+            --shadow-sm: 0 2px 4px rgba(44, 26, 14, 0.08);
+            --shadow-md: 0 6px 16px rgba(44, 26, 14, 0.12);
+            --shadow-lg: 0 12px 28px rgba(44, 26, 14, 0.18);
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--brand-primary) 0%, #3D1F0E 100%);
+            color: #FFFFFF;
+            padding: 1rem 1.5rem;
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid var(--brand-accent);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .brand-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .brand-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--brand-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--brand-primary);
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .brand-text h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: var(--brand-accent);
+        }
+
+        .brand-text p {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            color: #E8D7C3;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .db-config-btn {
+            background: rgba(212, 175, 55, 0.25);
+            border: 1px solid var(--brand-accent);
+            color: #FFF;
+            padding: 0.4rem 0.8rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.2s;
+        }
+
+        .db-config-btn:hover {
+            background: var(--brand-accent);
+            color: var(--brand-primary);
+        }
+
+        .audio-btn, .badge-counter {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            color: #FFF;
+            padding: 0.4rem 0.8rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.2s;
+        }
+
+        .audio-btn:hover, .badge-counter:hover {
+            background: rgba(212, 175, 55, 0.25);
+        }
+
+        nav {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 70px;
+            z-index: 90;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            overflow-x: auto;
+            scrollbar-width: thin;
+        }
+
+        .nav-btn {
+            padding: 0.9rem 1.2rem;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-btn.active {
+            color: var(--brand-primary);
+            border-bottom-color: var(--brand-primary);
+            background: var(--bg-primary);
+        }
+
+        .nav-btn:hover:not(.active) {
+            background: rgba(140, 74, 35, 0.08);
+            color: var(--brand-primary);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 1.5rem auto;
+            padding: 0 1rem;
+            flex: 1;
+            width: 100%;
+        }
+
+        .module-card {
+            display: none;
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            padding: 1.8rem;
+            box-shadow: var(--shadow-md);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .module-card.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            border-bottom: 2px dashed var(--border-color);
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: var(--brand-gold-light);
+            color: var(--brand-primary);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 0.25rem 0.6rem;
+            border-radius: var(--radius-sm);
+            margin-bottom: 0.4rem;
+            border: 1px solid var(--brand-accent);
+        }
+
+        .section-title {
+            color: var(--brand-primary);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: 0.25rem;
+        }
+
+        .interactive-widget {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .slider-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            font-size: 0.9rem;
+        }
+
+        .custom-slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: #D3C2A7;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .custom-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--brand-primary);
+            cursor: pointer;
+            border: 2px solid var(--brand-accent);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .simulation-output {
+            background: var(--bg-card);
+            border-radius: var(--radius-sm);
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            margin-top: 1rem;
+        }
+
+        .meter-bar {
+            height: 12px;
+            background: #E0E0E0;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-top: 0.4rem;
+        }
+
+        .meter-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #8C4A23, #D4AF37);
+            transition: width 0.4s ease;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1.2rem;
+        }
+
+        .hero-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.2rem;
+            text-align: center;
+            transition: all 0.25s ease;
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .hero-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--brand-accent);
+        }
+
+        .hero-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid var(--brand-accent);
+            font-size: 2rem;
+            color: var(--brand-primary);
+            overflow: hidden;
+        }
+
+        .hero-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-name {
+            font-weight: 700;
+            color: var(--brand-primary);
+            margin-bottom: 0.2rem;
+        }
+
+        .hero-origin {
+            font-size: 0.8rem;
+            color: var(--brand-secondary);
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+        }
+
+        .hero-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--brand-primary);
+            color: #FFFFFF;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background: var(--brand-secondary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-gold {
+            background: var(--brand-accent);
+            color: var(--brand-primary);
+            font-weight: 700;
+        }
+
+        .btn-gold:hover {
+            background: #C59F27;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--brand-primary);
+            color: var(--brand-primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--brand-primary);
+            color: #FFF;
+        }
+
+        .matching-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .matching-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .match-column {
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .match-column h4 {
+            color: var(--brand-primary);
+            margin-bottom: 0.8rem;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        .match-item {
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            padding: 0.8rem 1rem;
+            border-radius: var(--radius-sm);
+            margin-bottom: 0.6rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.88rem;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .match-item.selected {
+            border-color: var(--brand-accent);
+            background: var(--brand-gold-light);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .match-item.matched {
+            border-color: var(--success);
+            background: var(--success-bg);
+            color: var(--success);
+            cursor: default;
+        }
+
+        .quiz-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .quiz-progress {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .quiz-question {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--brand-primary);
+            margin-bottom: 1.2rem;
+            line-height: 1.5;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .quiz-option {
+            background: var(--bg-primary);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 0.8rem 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--brand-secondary);
+            background: #FFF;
+        }
+
+        .quiz-option.correct {
+            background: var(--success-bg);
+            border-color: var(--success);
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        .quiz-option.wrong {
+            background: var(--danger-bg);
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        .quiz-start-form {
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            color: var(--brand-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+        }
+
+        .mcma-checkbox {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        .tf-container {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .tf-btn {
+            flex: 1;
+            padding: 1.5rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: var(--radius-sm);
+            border: 2px solid var(--border-color);
+            background: var(--bg-primary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tf-btn.true-btn { color: var(--success); }
+        .tf-btn.false-btn { color: var(--danger); }
+        .tf-btn:hover { background: #FFF; box-shadow: var(--shadow-sm); }
+        
+        .tf-btn.selected { border-width: 3px; }
+        .tf-btn.true-btn.selected { border-color: var(--success); background: var(--success-bg); }
+        .tf-btn.false-btn.selected { border-color: var(--danger); background: var(--danger-bg); }
+
+        .dnd-board {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+        }
+
+        .dnd-items-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            min-height: 50px;
+            padding: 1rem;
+            background: rgba(255,255,255,0.5);
+            border: 2px dashed var(--brand-accent);
+            border-radius: var(--radius-sm);
+        }
+
+        .dnd-item {
+            background: var(--brand-primary);
+            color: white;
+            padding: 0.6rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            user-select: none;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.1s, box-shadow 0.2s;
+        }
+        
+        .dnd-item:active { transform: scale(0.95); }
+        .dnd-item.selected-for-move { box-shadow: 0 0 0 3px var(--brand-accent); transform: scale(1.05); background: var(--brand-secondary); }
+
+        .dnd-targets {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .dnd-row {
+            display: flex;
+            align-items: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 0.5rem 0.8rem;
+            gap: 1rem;
+        }
+
+        .dnd-label {
+            flex: 1;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--brand-primary);
+        }
+
+        .dnd-dropzone {
+            width: 180px;
+            min-height: 42px;
+            border: 2px dashed #999;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-primary);
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 0.3rem 0.6rem;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        .dnd-dropzone.has-item { border-style: solid; border-color: var(--brand-primary); background: var(--brand-gold-light); color: var(--brand-primary); }
+
+        .feedback-dialog {
+            margin-top: 1.2rem;
+            padding: 1rem;
+            border-radius: var(--radius-sm);
+            display: none;
+            animation: fadeIn 0.3s;
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+
+        .feedback-dialog.show {
+            display: block;
+        }
+
+        .feedback-dialog.correct-dialog {
+            background: var(--success-bg);
+            border-left: 4px solid var(--success);
+            color: #1B5E20;
+        }
+
+        .feedback-dialog.wrong-dialog {
+            background: var(--danger-bg);
+            border-left: 4px solid var(--danger);
+            color: #B71C1C;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(44, 26, 14, 0.6);
+            backdrop-filter: blur(3px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+            padding: 1rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 2px solid var(--brand-accent);
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 1.8rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            animation: modalPop 0.25s ease-out;
+        }
+
+        @keyframes modalPop {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        .marquee-container {
+            background: var(--brand-accent);
+            color: var(--brand-primary);
+            padding: 0.6rem 0;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 95;
+            border-bottom: 2px solid var(--brand-secondary);
+        }
+        
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 30s linear infinite;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+        
+        .marquee-content:hover {
+            animation-play-state: paused;
+            cursor: default;
+        }
+        
+        @keyframes marquee {
+            0% { transform: translateX(100vw); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .profile-card {
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+            transition: all 0.3s;
+        }
+
+        .profile-card:hover {
+            border-color: var(--brand-accent);
+            box-shadow: var(--shadow-md);
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            min-width: 80px;
+            background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            box-shadow: var(--shadow-sm);
+            border: 3px solid var(--brand-accent);
+        }
+
+        .profile-info h4 {
+            color: var(--brand-primary);
+            font-size: 1.2rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .profile-info p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        footer {
+            background: var(--brand-primary);
+            color: #E8D7C3;
+            text-align: center;
+            padding: 1.2rem;
+            font-size: 0.8rem;
+            margin-top: auto;
+            border-top: 2px solid var(--brand-accent);
+        }
+
+        @media (max-width: 600px) {
+            .header-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .nav-btn {
+                padding: 0.7rem 0.9rem;
+                font-size: 0.82rem;
+            }
+            .section-title {
+                font-size: 1.25rem;
+            }
+            .dnd-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .dnd-dropzone {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="brand-title">
+                <div class="brand-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <h1>JEJAK SANG PAHLAWAN</h1>
+                    <p>MPI IPAS Kelas VI Fase C — Kanwil Kemenag Prov. Gorontalo</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="db-config-btn" onclick="openDbConfigModal()" title="Pengaturan Database Apps Script">
+                    ⚙️ Database GAS
+                </button>
+                <button class="badge-counter" id="badgeDisplay" title="Lencana Terkumpul">
+                    🏆 <span id="badgeCount">0</span> Lencana
+                </button>
+                <button class="audio-btn" id="soundToggleBtn" onclick="toggleAudio()">
+                    🔊 Suara: ON
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="marquee-container">
+        <div class="marquee-content">
+            🌟 Selamat Datang di MPI IPAS Kelas VI Fase C! 🌟 Mari meneladani semangat patriotisme pahlawan Nani Wartabone dari Gorontalo! 🌟 Selesaikan semua tantangan untuk meraih 5 Lencana Kepahlawanan! 🌟 Media ini dikembangkan khusus untuk kemajuan pendidikan Madrasah oleh Bapak Sumarlin, S.Pd. Gr (MIS Al Mourky). 🌟 Belajar Sejarah itu Menyenangkan! 🌟
+        </div>
+    </div>
+
+    <nav>
+        <div class="nav-container">
+            <button class="nav-btn active" onclick="switchTab('mod0')">
+                🏠 Sampul & Beranda
+            </button>
+            <button class="nav-btn" onclick="switchTab('mod1')">
+                📜 Masa Penjajahan & Etis
+            </button>
+            <button class="nav-btn" onclick="switchTab('mod2')">
+                🛡️ Galeri & Jodohkan Pahlawan
+            </button>
+            <button class="nav-btn" onclick="switchTab('mod3')">
+                🌊 Jejak Masa Kini (Djuanda)
+            </button>
+            <button class="nav-btn" onclick="switchTab('mod4')">
+                ✍️ Evaluasi & Kuis
+            </button>
+            <button class="nav-btn" onclick="switchTab('mod5')">
+                📜 Jurnal & Refleksi
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <section id="mod0" class="module-card active">
+            <!-- Hero Banner -->
+            <div style="background: linear-gradient(135deg, var(--brand-primary) 0%, #4A2613 50%, var(--brand-secondary) 100%); color: white; padding: 4rem 2rem; border-radius: var(--radius-lg); text-align: center; margin-bottom: 2.5rem; position: relative; overflow: hidden; box-shadow: var(--shadow-lg); border: 2px solid var(--brand-accent);">
+                <div style="font-size: 8rem; position: absolute; top: -40px; right: -20px; opacity: 0.08; user-select: none;">🌟 🛡️</div>
+                <div style="font-size: 8rem; position: absolute; bottom: -30px; left: -20px; opacity: 0.08; user-select: none;">⚔️ 🎓</div>
+                
+                <span class="section-tag" style="background: rgba(212, 175, 55, 0.2); color: var(--brand-gold-light); border-color: rgba(212, 175, 55, 0.5); margin-bottom: 1.5rem; font-size: 0.85rem; padding: 0.5rem 1.2rem; letter-spacing: 1px;">ORIENTASI & PROFIL PEMBELAJARAN MI</span>
+                
+                <h2 style="font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; color: var(--brand-accent); margin-bottom: 1rem; text-shadow: 2px 4px 8px rgba(0,0,0,0.6); line-height: 1.2; letter-spacing: -0.5px;">JEJAK SANG PAHLAWAN</h2>
+                
+                <p style="font-size: clamp(1rem, 2vw, 1.15rem); opacity: 0.95; margin-bottom: 2.5rem; max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.7;">Selamat datang, Pejuang Muda Serambi Madinah! Mari menelusuri tapak sejarah pahlawan bangsa & lokal Gorontalo dalam pembelajaran IPAS Kelas VI. Siapkan dirimu untuk meraih Lencana Kepahlawanan!</p>
+                
+                <button class="btn btn-gold" style="font-size: 1.2rem; padding: 1rem 2.5rem; box-shadow: 0 6px 20px rgba(0,0,0,0.4); border-radius: 30px; font-weight: 800; letter-spacing: 1px; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" onclick="switchTab('mod1')">MULAI PETUALANGAN 🚀</button>
+            </div>
+
+            <!-- Content Grid -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+                <div style="background: var(--bg-secondary); padding: 1.8rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <h3 style="color: var(--brand-primary); font-size: 1.15rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; border-bottom: 2px dashed var(--border-color); padding-bottom: 0.8rem;">🎯 Tujuan Pembelajaran (Fase C)</h3>
+                    <ul style="padding-left: 1.2rem; font-size: 0.95rem; color: var(--text-dark); line-height: 1.7;">
+                        <li>Menelaah latar belakang kedatangan bangsa asing dan masa penjajahan.</li>
+                        <li>Memahami dampak kebijakan Tanam Paksa dan lahirnya Politik Etis.</li>
+                        <li>Mengenal pahlawan nasional & lokal Gorontalo (Nani Wartabone).</li>
+                        <li>Menganalisis warisan pahlawan masa kini (Deklarasi Djuanda, Puskesmas).</li>
+                        <li>Meneladani nilai kepahlawanan di lingkungan madrasah sehari-hari.</li>
+                    </ul>
+                </div>
+                
+                <div style="background: var(--bg-secondary); padding: 1.8rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <h3 style="color: var(--brand-primary); font-size: 1.15rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; border-bottom: 2px dashed var(--border-color); padding-bottom: 0.8rem;">🌊 Konteks Pesisir & Agraris</h3>
+                    <p style="font-size: 0.95rem; color: var(--text-dark); line-height: 1.7; margin-bottom: 1rem;">Anak-anakku siswa Madrasah Ibtidaiyah! Tahukah kamu bahwa semangat perjuangan dari pesisir Pantai Olele, Danau Limboto, hingga Benteng Otanaha membuktikan keberanian rakyat Gorontalo melawan penjajah?</p>
+                    <p style="font-size: 0.95rem; color: var(--brand-primary); line-height: 1.7; background: var(--brand-gold-light); padding: 1rem; border-radius: var(--radius-sm); border-left: 4px solid var(--brand-accent); font-weight: 600;">Selesaikan setiap modul interaktif, lakukan simulasi, cocokkan pahlawan, dan raih <strong>5 Lencana Kepahlawanan</strong>!</p>
+                </div>
+            </div>
+
+            <!-- Profile & Reference Area -->
+            <div style="margin-top: 1rem;">
+                <h3 style="color: var(--brand-primary); font-size: 1.15rem; margin-bottom: 1rem; border-bottom: 2px dashed var(--border-color); padding-bottom: 0.5rem;">👨‍🏫 Profil Pengembang Media</h3>
+                <div class="profile-card" style="margin-top: 0; background: linear-gradient(145deg, var(--bg-card), var(--bg-secondary)); border-width: 2px;">
+                    <div class="profile-avatar" style="overflow: hidden; background: transparent; width: 90px; height: 90px; min-width: 90px;">
+                        <img src="https://iili.io/nc9LXHP.md.jpg" alt="Foto Profil Pengembang" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="profile-info">
+                        <span style="font-size: 0.75rem; font-weight: 800; color: var(--brand-secondary); text-transform: uppercase; letter-spacing: 1.5px;">Kreator MPI & Guru Kelas</span>
+                        <h4 style="margin-top: 0.2rem; font-size: 1.4rem; color: var(--brand-primary);">Sumarlin, S.Pd. Gr</h4>
+                        <p style="margin-bottom: 0.2rem;"><strong>🏫 Instansi:</strong> MIS Al Mourky</p>
+                        <p style="margin-bottom: 0.2rem;"><strong>📧 Email:</strong> <a href="mailto:umarganteng@gmail.com" style="color: var(--brand-secondary); text-decoration: none; font-weight: 600;">umarganteng@gmail.com</a></p>
+                        <p style="margin-top: 0.6rem; font-size: 0.85rem; background: var(--brand-gold-light); padding: 0.4rem 1rem; border-radius: 6px; display: inline-block; border: 1px solid var(--brand-accent); font-weight: 700; color: var(--brand-primary);">
+                            Pengembang MPI Kanwil Kemenag Prov. Gorontalo
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 2rem; text-align: center; font-size: 0.85rem; color: var(--text-muted); background: var(--bg-secondary); padding: 1.2rem; border-radius: var(--radius-md); border: 1px dashed var(--border-color);">
+                <strong>📚 Referensi Sumber Belajar:</strong> Buku Panduan Guru & Siswa IPAS Kelas VI (Kemdikbudristek) • Capaian Pembelajaran Kurikulum Merdeka Fase C (SD/MI) • Sejarah Perjuangan Rakyat Gorontalo & Peristiwa Patriotik 23 Januari 1942.
+            </div>
+        </section>
+
+        <section id="mod1" class="module-card">
+            <div class="section-header">
+                <span class="section-tag">Sub-Bab A</span>
+                <h2 class="section-title">Daerahku di Masa Penjajahan & Politik Etis</h2>
+                <p class="section-subtitle">Memahami sistem Tanam Paksa (Cultuurstelsel) dan Trias Van Deventer.</p>
+            </div>
+
+            <p style="font-size: 0.92rem; margin-bottom: 1rem;">Pada masa kolonial, rakyat diwajibkan menanam tanaman ekspor seperti kopi, teh, nila, dan kakao. Lebih dari 20% hasil harus diserahkan kepada penjajah Belanda. Akibat penderitaan rakyat, muncullah kritik dari tokoh-tokoh Eropa hingga lahirlah **Politik Etis (Politik Balas Budi)**.</p>
+
+            <!-- SIMULASI INTERAKTIF TRIAS VAN DEVENTER -->
+            <div class="interactive-widget">
+                <h3 style="color: var(--brand-primary); font-size: 1.1rem; margin-bottom: 0.5rem;">🎮 Laboratorium Simulasi: Trias Van Deventer</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Geser slider kebijakan di bawah ini untuk melihat dampaknya terhadap tingkat kesejahteraan & pergerakan nasional rakyat Hindia Belanda!</p>
+
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>1. Irigasi (Pengairan Pertanian):</span>
+                        <span id="irigasiVal">50%</span>
+                    </div>
+                    <input type="range" class="custom-slider" id="irigasiSlider" min="0" max="100" value="50" oninput="updateSimulation()">
+                </div>
+
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>2. Edukasi (Pendidikan Sekolah Rakyat):</span>
+                        <span id="edukasiVal">50%</span>
+                    </div>
+                    <input type="range" class="custom-slider" id="edukasiSlider" min="0" max="100" value="50" oninput="updateSimulation()">
+                </div>
+
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <span>3. Emigrasi (Transmigrasi Penduduk):</span>
+                        <span id="emigrasiVal">50%</span>
+                    </div>
+                    <input type="range" class="custom-slider" id="emigrasiSlider" min="0" max="100" value="50" oninput="updateSimulation()">
+                </div>
+
+                <div class="simulation-output">
+                    <h4 style="font-size: 0.95rem; color: var(--brand-primary);">📊 Analisis Dampak Kebijakan:</h4>
+                    
+                    <div style="margin-top: 0.8rem;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.82rem;">
+                            <span>Tingkat Kelayakan Hasil Tani (Irigasi):</span>
+                            <span id="meterIrigasiTxt">Sedang</span>
+                        </div>
+                        <div class="meter-bar"><div class="meter-fill" id="barIrigasi"></div></div>
+                    </div>
+
+                    <div style="margin-top: 0.8rem;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.82rem;">
+                            <span>Kesadaran Pergerakan Nasional (Edukasi):</span>
+                            <span id="meterEdukasiTxt">Penting! Tonggak Pergerakan</span>
+                        </div>
+                        <div class="meter-bar"><div class="meter-fill" id="barEdukasi"></div></div>
+                    </div>
+
+                    <p id="simFeedback" style="margin-top: 1rem; font-size: 0.85rem; background: var(--brand-gold-light); padding: 0.8rem; border-radius: var(--radius-sm); border: 1px solid var(--brand-accent);">
+                        💡 **Catatan Historis:** Terbukanya akses Edukasi melahirkan kaum terpelajar yang menyadarkan pentingnya persatuan nasional untuk merebut kemerdekaan!
+                    </p>
+                </div>
+            </div>
+
+            <div style="margin-top: 1.5rem;">
+                <h3 style="color: var(--brand-primary); font-size: 1.1rem; margin-bottom: 0.8rem;">🔍 Tokoh Pengritik Tanam Paksa</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
+                    <div style="background: var(--bg-primary); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                        <strong style="color: var(--brand-primary);">Eduard Douwes Dekker (Multatuli)</strong>
+                        <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 0.3rem;">Menulis buku <em>Max Havelaar</em> yang membongkar penderitaan rakyat Banten akibat tanam paksa.</p>
+                    </div>
+                    <div style="background: var(--bg-primary); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                        <strong style="color: var(--brand-primary);">Conrad Theodore van Deventer</strong>
+                        <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 0.3rem;">Menyatakan Belanda memiliki 'Hutang Kehormatan' yang harus dibalas melalui Politik Etis.</p>
+                    </div>
+                    <div style="background: var(--bg-primary); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                        <strong style="color: var(--brand-primary);">Pieter Brooshooft</strong>
+                        <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 0.3rem;">Wartawan & sastrawan yang mendokumentasikan penyimpangan tanam paksa keliling Jawa.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="mod2" class="module-card">
+            <div class="section-header">
+                <span class="section-tag">Sub-Bab B</span>
+                <h2 class="section-title">Para Pahlawan Daerahku & Nusantara</h2>
+                <p class="section-subtitle">Pelajari biografi tokoh, pahlawan lokal Gorontalo, dan selesaikan tantangan menjodohkan!</p>
+            </div>
+
+            <!-- GALERI PAHLAWAN INTERAKTIF -->
+            <h3 style="color: var(--brand-primary); font-size: 1.1rem; margin-bottom: 0.8rem;">📜 Galeri Tokoh Kepahlawanan</h3>
+            <div class="cards-grid" id="heroGrid">
+                <!-- Dynamic Hero Cards Rendered by JS -->
+            </div>
+
+            <!-- GAME INTERAKTIF MENJODOHKAN PAHLAWAN & JASA -->
+            <div class="interactive-widget" style="margin-top: 2rem;">
+                <h3 style="color: var(--brand-primary); font-size: 1.1rem; margin-bottom: 0.4rem;">🎯 Tantangan Kompetisi Kelompok: Jodohkan Pahlawan & Jasanya!</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Klik pada **Nama Pahlawan** di kolom kiri, lalu klik **Jasa Utama** yang sesuai di kolom kanan!</p>
+
+                <div class="matching-container">
+                    <div class="match-column">
+                        <h4>👤 Nama Pahlawan</h4>
+                        <div id="heroMatchList"></div>
+                    </div>
+                    <div class="match-column">
+                        <h4>🏅 Peran & Jasa Perjuangan</h4>
+                        <div id="serviceMatchList"></div>
+                    </div>
+                </div>
+                <div id="matchSuccessMsg" style="display: none; margin-top: 1rem; text-align: center; background: var(--success-bg); color: var(--success); padding: 0.8rem; border-radius: var(--radius-sm); font-weight: 700;">
+                    🎉 Luar biasa! Kamu berhasil menjodohkan seluruh Pahlawan! (+1 Lencana Kategori Pahlawan)
+                </div>
+            </div>
+        </section>
+
+        <section id="mod3" class="module-card">
+            <div class="section-header">
+                <span class="section-tag">Sub-Bab C</span>
+                <h2 class="section-title">Jejak Mereka di Masa Kini</h2>
+                <p class="section-subtitle">Warisan nyata perjuangan pahlawan yang kita nikmati hari ini.</p>
+            </div>
+
+            <!-- INTERACTIVE DEKLARASI DJUANDA -->
+            <div class="interactive-widget">
+                <h3 style="color: var(--brand-primary); font-size: 1.1rem; margin-bottom: 0.4rem;">🌊 Eksplorasi Wilayah Laut: Deklarasi Djuanda (1957)</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Geser tombol di bawah untuk melihat perbedaan batas wilayah laut Indonesia **Sebelum vs Sesudah** Deklarasi Djuanda oleh Ir. H. Djuanda!</p>
+
+                <div style="text-align: center; margin-bottom: 1rem;">
+                    <button class="btn btn-outline" id="btnSea3" onclick="setSeaBoundary(3)">Sebelum 1957 (Batas 3 Mil)</button>
+                    <button class="btn btn-gold" id="btnSea12" onclick="setSeaBoundary(12)">Deklarasi Djuanda (12 Mil / Perairan Kepulauan)</button>
+                </div>
+
+                <div style="background: #E0F2FE; border: 2px solid #0284C7; border-radius: var(--radius-md); padding: 1.5rem; text-align: center; position: relative;">
+                    <div id="seaGraphic" style="font-size: 3rem; margin-bottom: 0.5rem;">🏝️ 🌊 🏝️</div>
+                    <h4 id="seaTitle" style="color: #0369A1; font-size: 1.1rem; margin-bottom: 0.5rem;">Deklarasi Djuanda 1957 (Satu Kesatuan NKRI)</h4>
+                    <p id="seaDesc" style="font-size: 0.88rem; color: #0C4A6E; max-width: 600px; margin: 0 auto;">Laut di antara pulau-pulau Indonesia adalah <strong>wilayah kedaulatan utuh NKRI</strong>, bukan laut internasional yang bebas dikuasai kapal asing! Ini melindungi wilayah pesisir Gorontalo dan Nusantara.</p>
+                </div>
+            </div>
+
+            <!-- WARISAN LAINNYA -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; margin-top: 1.5rem;">
+                <div style="background: var(--bg-secondary); padding: 1.2rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                    <div style="font-size: 2rem; margin-bottom: 0.4rem;">🎓</div>
+                    <h4 style="color: var(--brand-primary); margin-bottom: 0.4rem;">Tut Wuri Handayani</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Dicetuskan oleh **Ki Hadjar Dewantara**. Menjadi semboyan pendidikan Indonesia yang memerdekakan siswa untuk berkembang optimal.</p>
+                </div>
+
+                <div style="background: var(--bg-secondary); padding: 1.2rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                    <div style="font-size: 2rem; margin-bottom: 0.4rem;">🏥</div>
+                    <h4 style="color: var(--brand-primary); margin-bottom: 0.4rem;">Puskesmas</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Gagasan **Dr. Johannes Leimena** (Menteri Kesehatan & Pahlawan dari Maluku) agar fasilitas kesehatan terjangkau hingga tingkat kecamatan/kelurahan.</p>
+                </div>
+
+                <div style="background: var(--bg-secondary); padding: 1.2rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                    <div style="font-size: 2rem; margin-bottom: 0.4rem;">🤝</div>
+                    <h4 style="color: var(--brand-primary); margin-bottom: 0.4rem;">Bapak Koperasi Indonesia</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">**Dr. (H.C.) Drs. H. Mohammad Hatta** memperjuangkan kedaulatan ekonomi rakyat & asas kekeluargaan dalam konstitusi negara.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="mod4" class="module-card">
+            <div class="section-header">
+                <span class="section-tag">Evaluasi Pembelajaran</span>
+                <h2 class="section-title">Kuis Mini Interaktif: Jejak Sang Pahlawan</h2>
+                <p class="section-subtitle">Uji pemahamanmu dengan merespons pertanyaan berbasis studi kasus dan fakta sejarah!</p>
+            </div>
+
+            <div id="preQuizContainer" class="quiz-start-form">
+                <h3 style="color: var(--brand-primary); margin-bottom: 1rem;">Persiapan Evaluasi</h3>
+                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">Silakan lengkapi data diri sebelum memulai misi evaluasi (10 Soal Beragam).</p>
+                <form onsubmit="startQuizForm(event)">
+                    <div class="form-group">
+                        <label>Nama Lengkap / Kelompok:</label>
+                        <input type="text" id="quizStudentName" class="form-control" required placeholder="Masukkan nama...">
+                    </div>
+                    <div class="form-group">
+                        <label>Pilih Kelas:</label>
+                        <select id="quizStudentClass" class="form-control" required>
+                            <option value="">-- Pilih Kelas --</option>
+                            <option value="Kelas VI-A">Kelas VI-A</option>
+                            <option value="Kelas VI-B">Kelas VI-B</option>
+                            <option value="Kelas VI-C">Kelas VI-C</option>
+                        </select>
+                    </div>
+                    
+                    <div style="margin-bottom: 1.2rem; text-align: left; background: var(--bg-secondary); padding: 0.8rem; border-radius: var(--radius-sm); border: 1px dashed var(--border-color);">
+                        <label style="font-size: 0.8rem; color: var(--brand-primary); font-weight: bold; display: block; margin-bottom: 0.3rem;">📡 Status Koneksi Database Guru (Google Sheets):</label>
+                        <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+                            <span id="gasStatusBadge" style="font-size: 0.8rem; font-weight: bold; color: var(--danger);">🔴 Belum Terhubung (Lokal)</span>
+                            <button type="button" class="btn btn-outline" style="padding: 0.2rem 0.6rem; font-size: 0.75rem;" onclick="openDbConfigModal()">Atur Web App URL</button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-gold" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Mulai Kuis Sekarang 🚀</button>
+                </form>
+            </div>
+
+            <div id="quizContainer" style="display: none;">
+                <div class="quiz-card">
+                    <div class="quiz-progress">
+                        <span>Siswa: <strong id="displayStudentInfo"></strong></span>
+                        <span>Soal <span id="currentQNum">1</span> dari <span id="totalQNum">10</span></span>
+                        <span>Skor: <span id="currentScore">0</span></span>
+                    </div>
+
+                    <div class="quiz-question" id="qText">
+                        Loading pertanyaan...
+                    </div>
+                    
+                    <p id="qInstruction" style="font-size: 0.8rem; color: var(--brand-secondary); margin-top: -0.8rem; margin-bottom: 1rem; font-weight: bold;"></p>
+
+                    <div id="qOptionsWrapper">
+                        <!-- Options loaded dynamically -->
+                    </div>
+
+                    <div style="margin-top: 1rem; text-align: center;">
+                        <button class="btn btn-gold" id="confirmAnswerBtn" onclick="processComplexAnswer()" style="display: none; width: 100%;">Konfirmasi Jawaban ✔️</button>
+                    </div>
+
+                    <div class="feedback-dialog" id="feedbackBox">
+                        <!-- Educational reasoning feedback loaded here -->
+                    </div>
+
+                    <div style="margin-top: 1.2rem; text-align: right;">
+                        <button class="btn btn-gold" id="nextQBtn" onclick="nextQuestion()" style="display: none;">Soal Berikutnya ➔</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="quizResult" style="display: none; text-align: center; padding: 2rem; background: var(--bg-secondary); border-radius: var(--radius-md); border: 2px solid var(--brand-accent);">
+                <div style="font-size: 3.5rem; margin-bottom: 0.5rem;">🎖</div>
+                <h3 style="color: var(--brand-primary); font-size: 1.5rem; margin-bottom: 0.5rem;">Laporan Hasil Evaluasi</h3>
+                <p style="font-size: 1rem; font-weight: bold; margin-bottom: 1rem;"><span id="finalStudentName"></span> (<span id="finalStudentClass"></span>)</p>
+                <p style="font-size: 1.5rem; font-weight: 700; color: var(--brand-secondary); background: white; padding: 1rem; border-radius: 10px; border: 2px dashed var(--brand-accent);" id="finalScoreTxt">Skor: 100 / 100</p>
+                <p style="font-size: 0.95rem; color: var(--text-dark); margin: 1.5rem 0;" id="finalEvaluasiMsg"></p>
+                
+                <div id="dbSubmitStatus" style="margin: 1rem 0; padding: 0.8rem; border-radius: var(--radius-sm); font-size: 0.88rem; font-weight: bold; background: #FFF9E6; color: var(--brand-primary); border: 1px solid var(--brand-accent);">
+                    ⏳ Menyimpan hasil ke database guru...
+                </div>
+
+                <button class="btn btn-gold" onclick="restartQuiz()">Ulangi Kuis 🔄</button>
+            </div>
+        </section>
+
+        <section id="mod5" class="module-card">
+            <div class="section-header">
+                <span class="section-tag">Refleksi Pembelajaran MI</span>
+                <h2 class="section-title">Jurnal Refleksi Sikap Pahlawan</h2>
+                <p class="section-subtitle">Tuliskan refleksi dirimu dan cetak lencana kepahlawanan siswa madrasah!</p>
+            </div>
+
+            <div style="background: var(--bg-secondary); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                <form id="journalForm" onsubmit="saveJournal(event)">
+                    <div style="margin-bottom: 1rem;">
+                        <label style="display: block; font-weight: 700; color: var(--brand-primary); margin-bottom: 0.4rem; font-size: 0.9rem;">1. Nama Siswa / Kelompok:</label>
+                        <input type="text" id="jNama" required style="width: 100%; padding: 0.6rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);" placeholder="Contoh: Ahmad - MI Negeri 1 Gorontalo">
+                    </div>
+
+                    <div style="margin-bottom: 1rem;">
+                        <label style="display: block; font-weight: 700; color: var(--brand-primary); margin-bottom: 0.4rem; font-size: 0.9rem;">2. Sikap pahlawan apa yang paling ingin kamu terapkan di sekolah/madrasah?</label>
+                        <textarea id="jSikap" rows="3" required style="width: 100%; padding: 0.6rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);" placeholder="Contoh: Pantang menyerah saat belajar, berani membela kebenaran, dan bersatu tanpa membeda-bedakan teman."></textarea>
+                    </div>
+
+                    <div style="margin-bottom: 1rem;">
+                        <label style="display: block; font-weight: 700; color: var(--brand-primary); margin-bottom: 0.4rem; font-size: 0.9rem;">3. Janjiku untuk menghargai jasa pahlawan di masa kini:</label>
+                        <textarea id="jJanji" rows="3" required style="width: 100%; padding: 0.6rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);" placeholder="Contoh: Belajar sungguh-sungguh, mendoakan para pahlawan setelah salat, dan menjaga kelestarian lingkungan pesisir daerahku."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-gold">Simpan Jurnal & Tampilkan Sertifikat 📜</button>
+                </form>
+            </div>
+
+            <div id="journalOutput" style="display: none; margin-top: 1.5rem; background: var(--brand-gold-light); border: 2px solid var(--brand-accent); padding: 1.5rem; border-radius: var(--radius-md); text-align: center;">
+                <h3 style="color: var(--brand-primary); font-size: 1.3rem;">📜 SERTIFIKAT PEJUANG MUDA MADRASAH</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Diberikan atas kelulusan eksplorasi materi IPAS Bab 3: Jejak Sang Pahlawan</p>
+                <p style="font-size: 1.1rem; font-weight: 700; color: var(--brand-primary);" id="outNama"></p>
+                <div style="margin: 1rem auto; max-width: 500px; text-align: left; background: #FFF; padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); font-size: 0.85rem;">
+                    <p><strong>Sikap Teladan:</strong> <span id="outSikap"></span></p>
+                    <p style="margin-top: 0.5rem;"><strong>Komitmen Diri:</strong> <span id="outJanji"></span></p>
+                </div>
+                <button class="btn btn-primary" onclick="window.print()">🖨️ Cetak / Simpan Refleksi</button>
+            </div>
+        </section>
+    </main>
+
+    <div class="modal-overlay" id="heroModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeHeroModal()">&times;</button>
+            <div style="text-align: center; margin-bottom: 1rem;">
+                <div id="mAvatar" class="hero-avatar"></div>
+                <h3 id="mTitle" style="color: var(--brand-primary); font-size: 1.3rem;"></h3>
+                <span id="mOrigin" style="font-size: 0.85rem; color: var(--brand-secondary); font-weight: 700;"></span>
+            </div>
+            <div id="mBody" style="font-size: 0.9rem; color: var(--text-dark); line-height: 1.6;"></div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="dbConfigModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeDbConfigModal()">&times;</button>
+            <h3 style="color: var(--brand-primary); font-size: 1.2rem; margin-bottom: 0.8rem;">⚙️ Hubungkan Database Google Apps Script</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Paste URL Google Apps Script Web App dari spreadsheet guru ke kolom berikut agar seluruh hasil kuis siswa tersimpan otomatis secara terpusat.</p>
+
+            <div class="form-group">
+                <label style="font-size: 0.85rem;">Google Apps Script Web App URL:</label>
+                <input type="url" id="gasUrlInput" class="form-control" placeholder="https://script.google.com/macros/s/.../exec">
+            </div>
+
+            <div style="display: flex; gap: 0.5rem; justify-content: flex-end;">
+                <button class="btn btn-outline" onclick="closeDbConfigModal()">Batal</button>
+                <button class="btn btn-gold" onclick="saveGasUrlConfig()">Simpan & Hubungkan 💾</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 Media Pembelajaran Interaktif (MPI) IPAS Kelas VI SD/MI — Kantor Wilayah Kementerian Agama Provinsi Gorontalo</p>
+        <p style="font-size: 0.75rem; opacity: 0.8; margin-top: 0.3rem;">Integration Powered by Google Apps Script & GitHub Pages</p>
+    </footer>
+
+    <script>
+        let audioEnabled = true;
+        let badgesEarned = 0;
+        let selectedHeroMatch = null;
+        let selectedServiceMatch = null;
+
+        let gasWebAppUrl = localStorage.getItem('mpi_gas_url') || 'https://script.google.com/macros/s/AKfycbwG7tHfKUDXdSL2GUGkpF9a4R5VtivOrpVheyOS25PP4MwUBk2e6VMueSHlZjF0ndzj/exec';
+        let quizStartTime = null;
+        let studentAnswersHistory = [];
+
+        function checkGasUrlStatus() {
+            const badge = document.getElementById('gasStatusBadge');
+            const input = document.getElementById('gasUrlInput');
+            if (input) input.value = gasWebAppUrl;
+            
+            if (badge) {
+                if (gasWebAppUrl && gasWebAppUrl.startsWith('https://script.google.com')) {
+                    badge.innerText = '🟢 Terhubung ke Google Sheets';
+                    badge.style.color = 'var(--success)';
+                } else {
+                    badge.innerText = '🔴 Belum Terhubung (Lokal)';
+                    badge.style.color = 'var(--danger)';
+                }
+            }
+        }
+
+        function openDbConfigModal() {
+            playSound('click');
+            document.getElementById('gasUrlInput').value = gasWebAppUrl;
+            document.getElementById('dbConfigModal').classList.add('active');
+        }
+
+        function closeDbConfigModal() {
+            document.getElementById('dbConfigModal').classList.remove('active');
+        }
+
+        function saveGasUrlConfig() {
+            playSound('correct');
+            const url = document.getElementById('gasUrlInput').value.trim();
+            gasWebAppUrl = url;
+            localStorage.setItem('mpi_gas_url', url);
+            checkGasUrlStatus();
+            closeDbConfigModal();
+            alert("URL Database Google Apps Script berhasil disimpan!");
+        }
+
+        // Offline Web Audio API Synthesizer
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playSound(type) {
+            if (!audioEnabled) return;
+            try {
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                if (type === 'click') {
+                    osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+                    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.08);
+                } else if (type === 'correct') {
+                    osc.frequency.setValueAtTime(523.25, audioCtx.currentTime);
+                    osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1);
+                    gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.3);
+                } else if (type === 'wrong') {
+                    osc.frequency.setValueAtTime(200, audioCtx.currentTime);
+                    osc.frequency.setValueAtTime(150, audioCtx.currentTime + 0.1);
+                    gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.25);
+                }
+            } catch (e) {
+                console.log("Audio error:", e);
+            }
+        }
+
+        function toggleAudio() {
+            audioEnabled = !audioEnabled;
+            const btn = document.getElementById('soundToggleBtn');
+            btn.innerHTML = audioEnabled ? '🔊 Suara: ON' : '🔇 Suara: OFF';
+        }
+
+        function addBadge() {
+            badgesEarned++;
+            document.getElementById('badgeCount').innerText = badgesEarned;
+            playSound('correct');
+        }
+
+        function switchTab(modId) {
+            playSound('click');
+            document.querySelectorAll('.module-card').forEach(m => m.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+
+            document.getElementById(modId).classList.add('active');
+            
+            const navIndex = ['mod0', 'mod1', 'mod2', 'mod3', 'mod4', 'mod5'].indexOf(modId);
+            if (navIndex !== -1) {
+                document.querySelectorAll('.nav-btn')[navIndex].classList.add('active');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function updateSimulation() {
+            const irigasi = parseInt(document.getElementById('irigasiSlider').value);
+            const edukasi = parseInt(document.getElementById('edukasiSlider').value);
+            const emigrasi = parseInt(document.getElementById('emigrasiSlider').value);
+
+            document.getElementById('irigasiVal').innerText = irigasi + '%';
+            document.getElementById('edukasiVal').innerText = edukasi + '%';
+            document.getElementById('emigrasiVal').innerText = emigrasi + '%';
+
+            document.getElementById('barIrigasi').style.width = irigasi + '%';
+            document.getElementById('barEdukasi').style.width = edukasi + '%';
+
+            document.getElementById('meterIrigasiTxt').innerText = irigasi > 70 ? 'Sangat Baik (Sawah & Kebun Subur)' : (irigasi > 30 ? 'Sedang' : 'Buruk (Kekeringan)');
+            document.getElementById('meterEdukasiTxt').innerText = edukasi > 70 ? 'Sangat Tinggi! Lahir Kaum Cendekia & Pemuda Bangsa' : (edukasi > 30 ? 'Sedang' : 'Sangat Rendah (Bebas Buta Aksara Terhambat)');
+
+            const fb = document.getElementById('simFeedback');
+            if (edukasi >= 80 && irigasi >= 50) {
+                fb.innerHTML = "🌟 **Kombinasi Ideal!** Sekolah rakyat melahirkan tokoh pergerakan nasional, sementara irigasi meningkatkan hasil pertanian lokal Gorontalo & Nusantara!";
+            } else {
+                fb.innerHTML = "💡 **Catatan Historis:** Terbukanya akses Edukasi melahirkan kaum terpelajar yang menyadarkan pentingnya persatuan nasional untuk merebut kemerdekaan!";
+            }
+        }
+
+        const HEROES = [
+            {
+                id: 'nani',
+                name: 'Nani Wartabone',
+                origin: 'Gorontalo (Pahlawan Lokal)',
+                avatar: '🎖️',
+                imgUrl: 'https://iili.io/n0keFqB.jpg',
+                short: 'Pemimpin Peristiwa Patriotik 23 Januari 1942 di Gorontalo.',
+                details: 'Nani Wartabone memproklamasikan kemerdekaan Gorontalo pada 23 Januari 1942, lebih dari 3 tahun SEBELUM Proklamasi RI 17 Agustus 1945! Beliau memimpin Laskar Tani dan mengibarkan Sang Saka Merah Putih di bumi Gorontalo.'
+            },
+            {
+                id: 'malahayati',
+                name: 'Laksamana Malahayati',
+                origin: 'Aceh',
+                avatar: '⚔',
+                imgUrl: 'https://iili.io/n0kNzva.jpg',
+                short: 'Laksamana wanita pertama di dunia dari Kesultanan Aceh.',
+                details: 'Berhasil menghalau armada laut Belanda yang dipimpin Cornelis de Houtman pada abad ke-16 di perairan Aceh. Memimpin pasukan Inong Balee (prajurit wanita janda perintis).'
+            },
+            {
+                id: 'pattimura',
+                name: 'Kapitan Pattimura',
+                origin: 'Maluku',
+                avatar: '🗡️',
+                imgUrl: 'https://iili.io/n0kYDTg.jpg',
+                short: 'Pemimpin perlawanan rakyat Maluku melawan Belanda (1817).',
+                details: 'Memimpin perjuangan benteng Duurstede dan mengobarkan semangat perlawanan rakyat Maluku terhadap monopoli perdagangan rempah-rempah Belanda.'
+            },
+            {
+                id: 'khi',
+                name: 'Ki Hadjar Dewantara',
+                origin: 'Yogyakarta',
+                avatar: '📚',
+                imgUrl: 'https://iili.io/n0klbje.jpg',
+                short: 'Bapak Pendidikan Indonesia & Pendiri Taman Siswa.',
+                details: 'Mencetuskan semboyan Tut Wuri Handayani dan memperjuangkan hak pendidikan bagi seluruh rakyat pribumi tanpa membeda-bedakan status sosial.'
+            },
+            {
+                id: 'sam',
+                name: 'Dr. Sam Ratulangi',
+                origin: 'Sulawesi Utara',
+                avatar: '🌐',
+                imgUrl: 'https://iili.io/n0kRwrP.jpg',
+                short: 'Tokoh pendidikan & politisi pembawa berita proklamasi di Sulawesi.',
+                details: 'Doktor ilmu pasti pertama Indonesia. Terkenal dengan filosofi "Si Tou Timou Tumou Tou" (Manusia baru dapat dikatakan sebagai manusia, jika dapat memanusiakan manusia lain).'
+            },
+            {
+                id: 'hatta',
+                name: 'Dr. Mohammad Hatta',
+                origin: 'Sumatera Barat',
+                avatar: '🖊️',
+                imgUrl: 'https://iili.io/n0kTe7s.jpg',
+                short: 'Proklamator, Wakil Presiden Pertama & Bapak Koperasi.',
+                details: 'Tokoh yang sangat gemar membaca dan menulis. Memperjuangkan kedaulatan ekonomi rakyat lewat gerakan koperasi dan perumusan konstitusi pasal 33 UUD 1945.'
+            }
+        ];
+
+        function renderHeroGrid() {
+            const grid = document.getElementById('heroGrid');
+            if(!grid) return;
+            grid.innerHTML = '';
+            HEROES.forEach(h => {
+                const card = document.createElement('div');
+                card.className = 'hero-card';
+                let avatarContent = h.imgUrl ? `<img src="${h.imgUrl}" alt="${h.name}">` : h.avatar;
+                card.innerHTML = `
+                    <div>
+                        <div class="hero-avatar">${avatarContent}</div>
+                        <div class="hero-name">${h.name}</div>
+                        <div class="hero-origin">${h.origin}</div>
+                        <div class="hero-desc">${h.short}</div>
+                    </div>
+                    <button class="btn btn-outline" style="width:100%" onclick="openHeroModal('${h.id}')">Lihat Kisah Utuh 📖</button>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function openHeroModal(heroId) {
+            playSound('click');
+            const h = HEROES.find(item => item.id === heroId);
+            if (!h) return;
+            document.getElementById('mAvatar').innerHTML = h.imgUrl ? `<img src="${h.imgUrl}" alt="${h.name}">` : h.avatar;
+            document.getElementById('mTitle').innerText = h.name;
+            document.getElementById('mOrigin').innerText = 'Asal: ' + h.origin;
+            document.getElementById('mBody').innerHTML = `<p>${h.details}</p>`;
+            document.getElementById('heroModal').classList.add('active');
+        }
+
+        function closeHeroModal() {
+            document.getElementById('heroModal').classList.remove('active');
+        }
+
+        /* MATCHING GAME LOGIC */
+        const MATCH_DATA = [
+            { id: 'm1', hero: 'Nani Wartabone', service: 'Proklamasi Kemerdekaan Gorontalo 23 Jan 1942' },
+            { id: 'm2', hero: 'Ki Hadjar Dewantara', service: 'Pencetus Semboyan Tut Wuri Handayani' },
+            { id: 'm3', hero: 'Dr. Johannes Leimena', service: 'Penggagas Pendirian Puskesmas' },
+            { id: 'm4', hero: 'Ir. H. Djuanda', service: 'Pencetus Deklarasi Batas Wilayah Laut NKRI' }
+        ];
+
+        let matchedCount = 0;
+
+        function initMatchGame() {
+            const heroList = document.getElementById('heroMatchList');
+            const serviceList = document.getElementById('serviceMatchList');
+            if(!heroList || !serviceList) return;
+            
+            heroList.innerHTML = '';
+            serviceList.innerHTML = '';
+            matchedCount = 0;
+
+            const shuffledServices = [...MATCH_DATA].sort(() => Math.random() - 0.5);
+
+            MATCH_DATA.forEach(item => {
+                const hEl = document.createElement('div');
+                hEl.className = 'match-item';
+                hEl.dataset.id = item.id;
+                hEl.innerHTML = `<span>${item.hero}</span> <span>👤</span>`;
+                hEl.onclick = () => selectMatchItem('hero', item.id, hEl);
+                heroList.appendChild(hEl);
+            });
+
+            shuffledServices.forEach(item => {
+                const sEl = document.createElement('div');
+                sEl.className = 'match-item';
+                sEl.dataset.id = item.id;
+                sEl.innerHTML = `<span>${item.service}</span> <span>📜</span>`;
+                sEl.onclick = () => selectMatchItem('service', item.id, sEl);
+                serviceList.appendChild(sEl);
+            });
+        }
+
+        function selectMatchItem(type, id, el) {
+            if (el.classList.contains('matched')) return;
+            playSound('click');
+
+            if (type === 'hero') {
+                document.querySelectorAll('#heroMatchList .match-item').forEach(i => i.classList.remove('selected'));
+                el.classList.add('selected');
+                selectedHeroMatch = id;
+            } else {
+                document.querySelectorAll('#serviceMatchList .match-item').forEach(i => i.classList.remove('selected'));
+                el.classList.add('selected');
+                selectedServiceMatch = id;
+            }
+
+            if (selectedHeroMatch && selectedServiceMatch) {
+                if (selectedHeroMatch === selectedServiceMatch) {
+                    playSound('correct');
+                    const hEl = document.querySelector(`#heroMatchList .match-item[data-id="${selectedHeroMatch}"]`);
+                    const sEl = document.querySelector(`#serviceMatchList .match-item[data-id="${selectedServiceMatch}"]`);
+
+                    hEl.classList.remove('selected');
+                    sEl.classList.remove('selected');
+                    hEl.classList.add('matched');
+                    sEl.classList.add('matched');
+
+                    matchedCount++;
+                    if (matchedCount === MATCH_DATA.length) {
+                        document.getElementById('matchSuccessMsg').style.display = 'block';
+                        addBadge();
+                    }
+                } else {
+                    playSound('wrong');
+                    setTimeout(() => {
+                        document.querySelectorAll('.match-item.selected').forEach(i => i.classList.remove('selected'));
+                    }, 400);
+                }
+                selectedHeroMatch = null;
+                selectedServiceMatch = null;
+            }
+        }
+
+        function setSeaBoundary(miles) {
+            playSound('click');
+            const title = document.getElementById('seaTitle');
+            const desc = document.getElementById('seaDesc');
+            const btn3 = document.getElementById('btnSea3');
+            const btn12 = document.getElementById('btnSea12');
+
+            if (miles === 3) {
+                title.innerText = 'Aturan Zaman Kolonial (Batas 3 Mil Teritorial)';
+                desc.innerHTML = '⚠ Laut di antara pulau-pulau diibaratkan laut bebas internasional. Kapal perang dan kapal asing bebas berkeliaran di antara pulau Sumatra, Sulawesi, Gorontalo, dan Jawa!';
+                btn3.className = 'btn btn-gold';
+                btn12.className = 'btn btn-outline';
+            } else {
+                title.innerText = 'Deklarasi Djuanda 13 Desember 1957 (12 Mil Teritorial)';
+                desc.innerHTML = '🌊 **Satu Kesatuan Utuh!** Seluruh perairan antarpulau disatukan menjadi wilayah kedaulatan mutlak Republik Indonesia. Keamanan pesisir Gorontalo dan Nusantara terjaga!';
+                btn12.className = 'btn btn-gold';
+                btn3.className = 'btn btn-outline';
+            }
+        }
+
+        const QUIZ_BANK = [
+            {
+                type: 'pg',
+                q: "1. Mengapa pemerintah kolonial Belanda menerapkan sistem Tanam Paksa (Cultuurstelsel) di Indonesia?",
+                instruction: "Pilih salah satu jawaban yang paling tepat.",
+                options: [
+                    "A. Untuk memakmurkan petani dan rakyat pribumi secara adil",
+                    "B. Untuk mengisi kas negara Belanda yang kosong akibat perang",
+                    "C. Untuk membangun fasilitas pendidikan cuma-cuma bagi rakyat",
+                    "D. Untuk melatih teknik modern pertanian rakyat Gorontalo"
+                ],
+                ans: 1,
+                reason: "Tanam Paksa diterapkan Belanda untuk mengeruk keuntungan ekonomi sebesar-besarnya dari tanaman ekspor demi mengisi kas negara."
+            },
+            {
+                type: 'mcma',
+                q: "2. Politik Etis (Trias Van Deventer) memberikan pengaruh bagi bangsa Indonesia. Manakah yang TERMASUK dalam 3 kebijakan utama Politik Etis? (Pilih 3 jawaban)",
+                instruction: "Centang 3 jawaban yang benar, lalu klik Konfirmasi Jawaban.",
+                options: [
+                    "Irigasi (Pengairan sawah/pertanian)",
+                    "Monopoli Perdagangan Rempah",
+                    "Edukasi (Pendidikan untuk rakyat)",
+                    "Emigrasi (Perpindahan/Transmigrasi penduduk)",
+                    "Tanam Paksa (Cultuurstelsel)"
+                ],
+                ans: [0, 2, 3],
+                reason: "Trias Van Deventer terdiri dari Irigasi, Edukasi, dan Emigrasi. Monopoli dan Tanam Paksa adalah kebijakan penjajahan yang menyengsarakan."
+            },
+            {
+                type: 'tf',
+                q: "3. Peristiwa Proklamasi Kemerdekaan di Gorontalo dipimpin oleh Bapak Nani Wartabone pada tanggal 23 Januari 1942, lebih dari 3 tahun SEBELUM kemerdekaan nasional RI.",
+                instruction: "Tentukan apakah pernyataan ini Benar atau Salah.",
+                ans: true,
+                reason: "Fakta! Nani Wartabone memimpin rakyat mengibarkan bendera Merah Putih di Gorontalo pada 23 Januari 1942."
+            },
+            {
+                type: 'dnd',
+                q: "4. Masukkan nama pahlawan ke kotak asal daerah yang sesuai!",
+                instruction: "Klik nama Pahlawan di kotak atas, lalu klik 'Ketuk untuk isi' pada baris daerah yang tepat.",
+                items: ["Laksamana Malahayati", "Kapitan Pattimura", "Nani Wartabone"],
+                targets: [
+                    { id: 'Gorontalo', label: 'Provinsi Gorontalo' },
+                    { id: 'Maluku', label: 'Provinsi Maluku' },
+                    { id: 'Aceh', label: 'Provinsi Aceh' }
+                ],
+                ans: {
+                    'Gorontalo': 'Nani Wartabone',
+                    'Maluku': 'Kapitan Pattimura',
+                    'Aceh': 'Laksamana Malahayati'
+                },
+                reason: "Nani Wartabone berasal dari Gorontalo, Pattimura dari Maluku, dan Laksamana Malahayati berjuang di perairan Aceh."
+            },
+            {
+                type: 'pg',
+                q: "5. Tokoh yang dikenal sebagai Bapak Pendidikan Indonesia dan mencetuskan semboyan Tut Wuri Handayani adalah...",
+                instruction: "Pilih salah satu jawaban.",
+                options: [
+                    "A. Dr. Mohammad Hatta",
+                    "B. Ki Hadjar Dewantara",
+                    "C. Silas Papare",
+                    "D. Dr. Johannes Leimena"
+                ],
+                ans: 1,
+                reason: "Ki Hadjar Dewantara mendirikan Taman Siswa dan mencetuskan filosofi pendidikan nasional yang memerdekakan siswa."
+            },
+            {
+                type: 'tf',
+                q: "6. Deklarasi Djuanda (1957) menetapkan bahwa lautan di antara pulau-pulau Indonesia adalah wilayah internasional yang bebas dilewati kapal perang asing tanpa izin.",
+                instruction: "Tentukan apakah pernyataan ini Benar atau Salah.",
+                ans: false,
+                reason: "Deklarasi Djuanda justru menyatakan bahwa laut antarpulau adalah KEDAULATAN MUTLAK NKRI (Batas 12 Mil), BUKAN wilayah bebas internasional."
+            },
+            {
+                type: 'mcma',
+                q: "7. Warisan pemikiran pahlawan yang masih nyata dan bermanfaat bagi kehidupan kita sehari-hari hingga saat ini adalah... (Pilih 2 jawaban benar)",
+                instruction: "Centang 2 jawaban yang benar, lalu klik Konfirmasi Jawaban.",
+                options: [
+                    "Kerja Rodi pembangunan jalan",
+                    "Puskesmas (Pusat Kesehatan Masyarakat)",
+                    "Sistem Koperasi Ekonomi",
+                    "Undang-Undang Tanam Paksa"
+                ],
+                ans: [1, 2],
+                reason: "Puskesmas digagas oleh Dr. J. Leimena, dan Koperasi diperjuangkan oleh Dr. Mohammad Hatta. Keduanya sangat bermanfaat hari ini."
+            },
+            {
+                type: 'pg',
+                q: "8. Bapak Mohammad Hatta dianugerahi julukan 'Bapak Koperasi Indonesia' karena...",
+                instruction: "Pilih salah satu jawaban.",
+                options: [
+                    "A. Memimpin peperangan laut di perairan Gorontalo",
+                    "B. Memperjuangkan kedaulatan ekonomi rakyat lewat gerakan koperasi",
+                    "C. Merupakan penemu mesin bajak sawah untuk pertanian",
+                    "D. Mendirikan Puskesmas pertama di Indonesia"
+                ],
+                ans: 1,
+                reason: "Bung Hatta sangat peduli pada kesejahteraan ekonomi rakyat kecil berlandaskan asas kekeluargaan (Koperasi)."
+            },
+            {
+                type: 'dnd',
+                q: "9. Pasangkan tokoh pahlawan dengan warisan jasanya yang tepat!",
+                instruction: "Klik nama warisan di kotak atas, lalu klik 'Ketuk untuk isi' di samping nama tokoh.",
+                items: ["Gagasan Puskesmas", "Bapak Koperasi", "Bapak Pendidikan"],
+                targets: [
+                    { id: 't1', label: 'Dr. Johannes Leimena' },
+                    { id: 't2', label: 'Dr. Mohammad Hatta' },
+                    { id: 't3', label: 'Ki Hadjar Dewantara' }
+                ],
+                ans: {
+                    't1': 'Gagasan Puskesmas',
+                    't2': 'Bapak Koperasi',
+                    't3': 'Bapak Pendidikan'
+                },
+                reason: "Dr. Leimena menggagas Puskesmas, Mohammad Hatta memperjuangkan Koperasi, dan Ki Hadjar Dewantara untuk Pendidikan."
+            },
+            {
+                type: 'tf',
+                q: "10. Wujud nyata meneladani pahlawan bagi siswa MI adalah belajar sungguh-sungguh, menjaga persatuan di sekolah, dan menjaga kelestarian lingkungan.",
+                instruction: "Tentukan apakah pernyataan ini Benar atau Salah.",
+                ans: true,
+                reason: "Benar! Perjuangan di masa kini tidak lagi mengangkat senjata, melainkan berprestasi, menjaga kerukunan, dan berakhlak mulia."
+            }
+        ];
+
+        let currQIndex = 0;
+        let score = 0;
+        let answered = false;
+        
+        let activeStudent = { name: '', classStr: '' };
+        let dndSelectedItem = null;
+        let dndCurrentState = {};
+
+        function startQuizForm(e) {
+            e.preventDefault();
+            playSound('click');
+            activeStudent.name = document.getElementById('quizStudentName').value;
+            activeStudent.classStr = document.getElementById('quizStudentClass').value;
+            
+            document.getElementById('displayStudentInfo').innerText = `${activeStudent.name} (${activeStudent.classStr})`;
+            
+            document.getElementById('preQuizContainer').style.display = 'none';
+            document.getElementById('quizContainer').style.display = 'block';
+            
+            currQIndex = 0;
+            score = 0;
+            quizStartTime = new Date();
+            studentAnswersHistory = [];
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            answered = false;
+            const q = QUIZ_BANK[currQIndex];
+            document.getElementById('currentQNum').innerText = currQIndex + 1;
+            document.getElementById('totalQNum').innerText = QUIZ_BANK.length;
+            document.getElementById('currentScore').innerText = score;
+            
+            document.getElementById('qText').innerText = q.q;
+            document.getElementById('qInstruction').innerText = q.instruction;
+
+            const wrapper = document.getElementById('qOptionsWrapper');
+            wrapper.innerHTML = '';
+
+            document.getElementById('feedbackBox').style.display = 'none';
+            document.getElementById('nextQBtn').style.display = 'none';
+            document.getElementById('confirmAnswerBtn').style.display = 'none';
+
+            if (q.type === 'pg') {
+                q.options.forEach((optText, i) => {
+                    const optDiv = document.createElement('div');
+                    optDiv.className = 'quiz-option';
+                    optDiv.innerText = optText;
+                    optDiv.onclick = () => checkPGAnswer(i, optDiv);
+                    wrapper.appendChild(optDiv);
+                });
+            } 
+            else if (q.type === 'mcma') {
+                const formGroups = document.createElement('div');
+                formGroups.className = 'quiz-options';
+                q.options.forEach((optText, i) => {
+                    const label = document.createElement('label');
+                    label.className = 'quiz-option';
+                    label.style.cursor = 'pointer';
+                    label.innerHTML = `<input type="checkbox" class="mcma-checkbox" value="${i}"> <span>${optText}</span>`;
+                    formGroups.appendChild(label);
+                });
+                wrapper.appendChild(formGroups);
+                document.getElementById('confirmAnswerBtn').style.display = 'inline-block';
+            }
+            else if (q.type === 'tf') {
+                const cont = document.createElement('div');
+                cont.className = 'tf-container';
+                
+                const btnT = document.createElement('button');
+                btnT.className = 'tf-btn true-btn';
+                btnT.innerText = 'BENAR';
+                btnT.onclick = () => checkTFAnswer(true, btnT);
+                
+                const btnF = document.createElement('button');
+                btnF.className = 'tf-btn false-btn';
+                btnF.innerText = 'SALAH';
+                btnF.onclick = () => checkTFAnswer(false, btnF);
+                
+                cont.appendChild(btnT);
+                cont.appendChild(btnF);
+                wrapper.appendChild(cont);
+            }
+            else if (q.type === 'dnd') {
+                dndCurrentState = {};
+                dndSelectedItem = null;
+                
+                const board = document.createElement('div');
+                board.className = 'dnd-board';
+                
+                const pool = document.createElement('div');
+                pool.className = 'dnd-items-container';
+                pool.id = 'dndPool';
+                
+                q.items.forEach(itemText => {
+                    const chip = document.createElement('div');
+                    chip.className = 'dnd-item';
+                    chip.innerText = itemText;
+                    chip.onclick = (e) => handleDndItemClick(e, chip, itemText);
+                    pool.appendChild(chip);
+                });
+                board.appendChild(pool);
+                
+                const targetsWrap = document.createElement('div');
+                targetsWrap.className = 'dnd-targets';
+                q.targets.forEach(t => {
+                    const row = document.createElement('div');
+                    row.className = 'dnd-row';
+                    
+                    const lbl = document.createElement('div');
+                    lbl.className = 'dnd-label';
+                    lbl.innerText = t.label;
+                    
+                    const zone = document.createElement('div');
+                    zone.className = 'dnd-dropzone';
+                    zone.dataset.targetId = t.id;
+                    zone.innerText = "Ketuk untuk isi";
+                    zone.onclick = () => handleDndZoneClick(zone, t.id);
+                    
+                    row.appendChild(lbl);
+                    row.appendChild(zone);
+                    targetsWrap.appendChild(row);
+                });
+                
+                board.appendChild(targetsWrap);
+                wrapper.appendChild(board);
+                document.getElementById('confirmAnswerBtn').style.display = 'inline-block';
+            }
+        }
+
+        /* DRAG AND DROP / TAP HANDLERS FOR QUIZ */
+        function handleDndItemClick(e, chipEl, itemText) {
+            if (answered) return;
+            playSound('click');
+            
+            document.querySelectorAll('.dnd-item').forEach(el => el.classList.remove('selected-for-move'));
+            
+            if (dndSelectedItem && dndSelectedItem.chipEl === chipEl) {
+                dndSelectedItem = null;
+                return;
+            }
+            
+            dndSelectedItem = { chipEl, itemText };
+            chipEl.classList.add('selected-for-move');
+        }
+
+        function handleDndZoneClick(zoneEl, targetId) {
+            if (answered) return;
+            playSound('click');
+            
+            const pool = document.getElementById('dndPool');
+            
+            if (dndSelectedItem) {
+                if (dndCurrentState[targetId]) {
+                    const oldText = dndCurrentState[targetId];
+                    const oldChip = document.createElement('div');
+                    oldChip.className = 'dnd-item';
+                    oldChip.innerText = oldText;
+                    oldChip.onclick = (e) => handleDndItemClick(e, oldChip, oldText);
+                    pool.appendChild(oldChip);
+                }
+                
+                dndCurrentState[targetId] = dndSelectedItem.itemText;
+                zoneEl.innerText = dndSelectedItem.itemText;
+                zoneEl.classList.add('has-item');
+                
+                if (dndSelectedItem.chipEl && dndSelectedItem.chipEl.parentNode) {
+                    dndSelectedItem.chipEl.parentNode.removeChild(dndSelectedItem.chipEl);
+                }
+                
+                dndSelectedItem = null;
+            } 
+            else if (dndCurrentState[targetId]) {
+                const oldText = dndCurrentState[targetId];
+                delete dndCurrentState[targetId];
+                
+                zoneEl.innerText = "Ketuk untuk isi";
+                zoneEl.classList.remove('has-item');
+                
+                const oldChip = document.createElement('div');
+                oldChip.className = 'dnd-item';
+                oldChip.innerText = oldText;
+                oldChip.onclick = (e) => handleDndItemClick(e, oldChip, oldText);
+                pool.appendChild(oldChip);
+            }
+        }
+
+        function checkPGAnswer(chosenIndex, optEl) {
+            if (answered) return;
+            answered = true;
+            const q = QUIZ_BANK[currQIndex];
+            const isCorrect = (chosenIndex === q.ans);
+            
+            studentAnswersHistory.push({
+                no: currQIndex + 1,
+                userAnswer: q.options[chosenIndex],
+                isCorrect: isCorrect
+            });
+
+            if (isCorrect) {
+                processCorrectResponse(optEl);
+            } else {
+                processWrongResponse(optEl);
+                const opts = document.querySelectorAll('.quiz-option');
+                if (opts[q.ans]) opts[q.ans].classList.add('correct');
+            }
+        }
+
+        function checkTFAnswer(chosenVal, btnEl) {
+            if (answered) return;
+            answered = true;
+            const q = QUIZ_BANK[currQIndex];
+            const isCorrect = (chosenVal === q.ans);
+            
+            document.querySelectorAll('.tf-btn').forEach(b => b.classList.remove('selected'));
+            btnEl.classList.add('selected');
+            
+            studentAnswersHistory.push({
+                no: currQIndex + 1,
+                userAnswer: chosenVal ? 'BENAR' : 'SALAH',
+                isCorrect: isCorrect
+            });
+
+            if (isCorrect) {
+                processCorrectResponse(btnEl);
+            } else {
+                processWrongResponse(btnEl);
+            }
+        }
+
+        function processComplexAnswer() {
+            if (answered) return;
+            const q = QUIZ_BANK[currQIndex];
+            
+            if (q.type === 'mcma') {
+                const checkboxes = document.querySelectorAll('.mcma-checkbox');
+                let userVals = [];
+                let chosenTexts = [];
+                checkboxes.forEach(cb => {
+                    if(cb.checked) {
+                        userVals.push(parseInt(cb.value));
+                        chosenTexts.push(q.options[parseInt(cb.value)]);
+                    }
+                });
+                
+                if (userVals.length === 0) { alert("Pilih minimal 1 jawaban!"); return; }
+                
+                answered = true;
+                userVals.sort((a, b) => a - b);
+                let isCorrect = (userVals.length === q.ans.length) && userVals.every((val, index) => val === q.ans[index]);
+                
+                studentAnswersHistory.push({
+                    no: currQIndex + 1,
+                    userAnswer: chosenTexts.join(', '),
+                    isCorrect: isCorrect
+                });
+
+                document.getElementById('confirmAnswerBtn').style.display = 'none';
+                
+                checkboxes.forEach((cb, i) => {
+                    cb.disabled = true;
+                    let parent = cb.parentElement;
+                    if (q.ans.includes(i)) {
+                        parent.classList.add('correct');
+                    } else if (cb.checked) {
+                        parent.classList.add('wrong');
+                    }
+                });
+                
+                if (isCorrect) processCorrectResponse(null); else processWrongResponse(null);
+            }
+            else if (q.type === 'dnd') {
+                if (Object.keys(dndCurrentState).length < q.targets.length) {
+                    alert("Pasangkan semua kotak terlebih dahulu!"); return;
+                }
+                
+                answered = true;
+                document.getElementById('confirmAnswerBtn').style.display = 'none';
+                
+                let isCorrect = true;
+                let summaryPairs = [];
+                
+                document.querySelectorAll('.dnd-dropzone').forEach(zone => {
+                    const tid = zone.dataset.targetId;
+                    const userVal = dndCurrentState[tid];
+                    const correctVal = q.ans[tid];
+                    summaryPairs.push(`${tid}: ${userVal}`);
+                    
+                    if (userVal === correctVal) {
+                        zone.style.borderColor = 'var(--success)';
+                        zone.style.backgroundColor = 'var(--success-bg)';
+                    } else {
+                        zone.style.borderColor = 'var(--danger)';
+                        zone.style.backgroundColor = 'var(--danger-bg)';
+                        isCorrect = false;
+                    }
+                });
+
+                studentAnswersHistory.push({
+                    no: currQIndex + 1,
+                    userAnswer: summaryPairs.join(' | '),
+                    isCorrect: isCorrect
+                });
+                
+                if (isCorrect) processCorrectResponse(null); else processWrongResponse(null);
+            }
+        }
+
+        function processCorrectResponse(uiElement) {
+            playSound('correct');
+            if(uiElement) uiElement.classList.add('correct');
+            score += 10;
+            document.getElementById('currentScore').innerText = score;
+            
+            const fbBox = document.getElementById('feedbackBox');
+            fbBox.className = 'feedback-dialog correct-dialog show';
+            fbBox.innerHTML = `<strong>✅ Tepat Sekali!</strong><br>${QUIZ_BANK[currQIndex].reason}`;
+            document.getElementById('nextQBtn').style.display = 'inline-block';
+        }
+
+        function processWrongResponse(uiElement) {
+            playSound('wrong');
+            if(uiElement) uiElement.classList.add('wrong');
+            
+            const fbBox = document.getElementById('feedbackBox');
+            fbBox.className = 'feedback-dialog wrong-dialog show';
+            fbBox.innerHTML = `<strong>❌ Kurang Tepat.</strong><br>${QUIZ_BANK[currQIndex].reason}`;
+            document.getElementById('nextQBtn').style.display = 'inline-block';
+        }
+
+        function nextQuestion() {
+            playSound('click');
+            currQIndex++;
+            if (currQIndex < QUIZ_BANK.length) {
+                renderQuestion();
+            } else {
+                showQuizResult();
+            }
+        }
+
+        function showQuizResult() {
+            document.getElementById('quizContainer').style.display = 'none';
+            document.getElementById('quizResult').style.display = 'block';
+            
+            document.getElementById('finalStudentName').innerText = activeStudent.name;
+            document.getElementById('finalStudentClass').innerText = activeStudent.classStr;
+            document.getElementById('finalScoreTxt').innerText = `Skor Anda: ${score} / ${QUIZ_BANK.length * 10}`;
+
+            const msg = document.getElementById('finalEvaluasiMsg');
+            if (score >= 80) {
+                msg.innerHTML = "🏆 <strong>Istimewa!</strong> Kamu adalah Pejuang Cendekia Madrasah Gorontalo sejati! Pertahankan semangat belajarmu.";
+                addBadge();
+            } else if (score >= 60) {
+                msg.innerHTML = "👍 <strong>Cukup Baik!</strong> Kamu sudah memahami sebagian besar materi. Perhatikan kembali sejarah pahlawan lokal.";
+            } else {
+                msg.innerHTML = "💪 <strong>Tetap Semangat!</strong> Jangan berkecil hati. Pelajari kembali materi modul dan ulangi kuis untuk hasil maksimal.";
+            }
+
+            sendResultsToGoogleSheets();
+        }
+
+        function sendResultsToGoogleSheets() {
+            const statusDiv = document.getElementById('dbSubmitStatus');
+            
+            if (!gasWebAppUrl || !gasWebAppUrl.startsWith('https://script.google.com')) {
+                statusDiv.className = 'feedback-dialog wrong-dialog show';
+                statusDiv.style.display = 'block';
+                statusDiv.innerHTML = '⚠️ <strong>Pemberitahuan:</strong> Hasil kuis tersimpan secara lokal. Masukkan URL Google Apps Script pada tombol <strong>⚙️ Database GAS</strong> di atas untuk menyimpan ke Spreadsheet Guru.';
+                return;
+            }
+
+            statusDiv.className = 'feedback-dialog show';
+            statusDiv.style.display = 'block';
+            statusDiv.style.background = '#FFF9E6';
+            statusDiv.style.color = 'var(--brand-primary)';
+            statusDiv.innerHTML = '⏳ <strong>Mengirim data:</strong> Menyimpan hasil evaluasi ke Spreadsheet Guru...';
+
+            const durationSec = quizStartTime ? Math.round((new Date() - quizStartTime) / 1000) : 0;
+            const correctCount = score / 10;
+            const wrongCount = QUIZ_BANK.length - correctCount;
+
+            const payload = {
+                nama: activeStudent.name,
+                kelas: activeStudent.classStr,
+                skor: score,
+                jumlahBenar: correctCount,
+                jumlahSalah: wrongCount,
+                durasiDetik: durationSec,
+                jawabanSoal: studentAnswersHistory
+            };
+
+            fetch(gasWebAppUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'text/plain;charset=utf-8'
+                },
+                body: JSON.stringify(payload)
+            }).then(() => {
+                statusDiv.className = 'feedback-dialog correct-dialog show';
+                statusDiv.innerHTML = '✅ <strong>Berhasil!</strong> Hasil evaluasi telah tersimpan di Spreadsheet Guru.';
+            }).catch(err => {
+                console.error("Gagal mengirim ke GAS:", err);
+                statusDiv.className = 'feedback-dialog wrong-dialog show';
+                statusDiv.innerHTML = '⚠️ <strong>Gagal Terhubung:</strong> Tidak dapat mengirim data ke Google Apps Script. Pastikan koneksi internet stabil.';
+            });
+        }
+
+        function restartQuiz() {
+            playSound('click');
+            document.getElementById('quizResult').style.display = 'none';
+            document.getElementById('preQuizContainer').style.display = 'block';
+            currQIndex = 0;
+            score = 0;
+            activeStudent = { name: '', classStr: '' };
+        }
+
+        function saveJournal(e) {
+            e.preventDefault();
+            playSound('correct');
+            const nama = document.getElementById('jNama').value;
+            const sikap = document.getElementById('jSikap').value;
+            const janji = document.getElementById('jJanji').value;
+
+            document.getElementById('outNama').innerText = nama;
+            document.getElementById('outSikap').innerText = sikap;
+            document.getElementById('outJanji').innerText = janji;
+
+            document.getElementById('journalOutput').style.display = 'block';
+            addBadge();
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            renderHeroGrid();
+            initMatchGame();
+            updateSimulation();
+            checkGasUrlStatus();
+        });
+    </script>
+</body>
+</html>
